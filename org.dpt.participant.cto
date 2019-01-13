@@ -1,0 +1,31 @@
+namespace org.dpt.participant
+
+abstract participant Person identified by participantId {
+  o String participantId
+  o Contact Contact
+}
+
+concept Address {
+  o String addressLine1
+  o String addressLine2 
+  o String city
+  o String state
+  o Integer zipcode 
+  o String country default="India"
+}
+
+concept Contact {
+  o String firstname
+  o String lastname
+  o Address address
+  o String email
+  o Integer phoneNo 
+  o String govIdNo
+}
+
+participant dptParticipant extends Person {
+}
+
+participant dptLegalDepartment extends Person {
+  o String department 
+}

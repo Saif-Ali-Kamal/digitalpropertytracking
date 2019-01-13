@@ -1,0 +1,32 @@
+// Returns all land title
+query AllLandTitle {
+  description: "Returns all Land Title in registry"
+  statement: 
+    SELECT org.dpt.asset.LandTitle
+}
+
+// Uses the limit & skip
+query AllLandTitleLimitSkip {
+  description: "limit the number of  Land Title  returns"
+  statement: 
+    SELECT org.dpt.asset.LandTitle
+    LIMIT _$limit
+    SKIP _$skip
+}
+
+// Select land title based on zipcode and city
+
+query AllLandTitleZipcodeAndCity {
+  description: "Returns all land title based on zipcode and city"
+  statement:
+    SELECT org.dpt.asset.LandTitle
+      WHERE (address.zipcode == _$zipcode AND address.city == _$city)
+}
+
+// Return all participant 
+
+query AllParticipantOwnership {
+  description: "Returns All participant"
+  statement:
+    SELECT org.dpt.participant.Person  
+} 

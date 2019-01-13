@@ -1,0 +1,62 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace org.dpt.apte
+
+asset LandTitle identified by landId {
+  o String landId
+  o Address address
+  o Integer regNo
+  o String information
+  o Double minPrice
+  o Ownership ownershipType default="LEASED"
+  o Boolean forSale optional
+}
+
+asset SalesAgreemnt identified by saleId {
+  o String saleId
+}
+
+enum Ownership {
+  o LEASED
+  o OWNED
+}
+
+concept Contact {
+  o String firstname
+  o String lastname
+  o Address address
+  o String email
+  o Integer phoneNo 
+  o String govId
+}
+
+concept Address {
+  o String addressLine1
+  o String addressLine2 
+  o String city
+  o String state
+  o Integer zipcode
+  o String country default="India"
+}
+
+participant Person identified by participantId {
+  o String participantId
+  o Contact Contact
+}
+

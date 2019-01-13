@@ -1,0 +1,70 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+rule NetworkAdminPermissionSystem {
+  description: "can READ the system registries"
+  participant: "ANY"
+  operation: READ
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW  
+}
+
+rule NetworkControlPermission {
+    description: "give admin all access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.*"
+    action: ALLOW
+}
+
+rule ParticipantRegistryControlPermission {
+    description: "give admin all access to dpt participant type"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.dpt.participant.*"
+    action: ALLOW
+}
+
+rule dptNetworkAdminPermission {
+  description: "can READ the resource registries"
+  participant: "org.dpt.participant.Person"
+  operation: READ
+  resource: "org.dpt.**"
+  action: ALLOW
+}
+
+rule dptParticipantPermissionHistorian {
+  description: "can write  historian record to historian"
+  participant: "org.dpt.participant.dptLegalDepartment"
+  operation: CREATE
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW 
+}
+
+rule dptLegalDepartmentPermissionForSale {
+  description: "only dpt legal department can create flight"
+  participant: "org.dpt.participant.dptLegalDepartment"
+  operation: CREATE
+  resource: "org.dpt.asset.*"
+  transaction: "org.dpt.asset.RegisterPropertyForSales"
+  action: ALLOW
+}
+
+rule dptLegalDepartmentPermissionForLease {
+  description: "only dpt legal department can create flight"
+  participant: "org.dpt.participant.dptLegalDepartment"
+  operation: CREATE
+  resource: "org.dpt.asset.*"
+  transaction: "org.dpt.asset.RegisterPropertyForLease"
+  action: ALLOW
+}

@@ -1,0 +1,76 @@
+namespace org.dpt.asset
+
+import org.dpt.participant.Person
+
+/* defining assets */
+
+asset LandTitle identified by landId {
+  o String landId
+  --> Person owner
+  o Address address
+  o String regNo
+  o String description 
+  o Ownership ownershipType default="LEASED"
+  o Property popertyType default="RESIDENTIAL"
+  o Action actionType optional
+  o Double minPrice optional
+}
+
+enum Ownership {
+  o LEASED
+  o OWNED
+}
+
+enum Property{
+  o RESIDENTIAL
+  o COMMERCIAL
+  o LAND 
+}
+
+enum Action {
+  o FORLEASE
+  o FORSALE
+}
+
+concept Address {
+  o String addressLine1
+  o String addressLine2 
+  o String city
+  o String state
+  o Integer zipcode
+  o String country default="India"
+}
+
+asset SalesAgreemnt identified by salesId {
+  o String salesId
+  --> Person buyer
+  --> Person seller
+  --> LandTitle title
+}
+
+asset RentAgreemnt identified by rentId {
+  o String rentId
+  --> Person renter
+  --> Person tenant 
+  --> LandTitle title
+}
+
+transaction RegisterPropertyForSales {
+  --> Person seller
+  --> Person buyer
+  --> LandTitle title  
+}
+
+event SalesAgreemwntCreated {
+  o String regNo
+}
+
+transaction RegisterPropertyForLease {
+  --> Person renter
+  --> Person tenant
+  --> LandTitle title  
+}
+
+event rentAgreemwntCreated {
+  o String regNo
+}
